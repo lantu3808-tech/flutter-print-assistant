@@ -11,7 +11,8 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        os: [windows-latest]
+      fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -24,41 +25,18 @@ jobs:
       - name: Enable desktop support
         run: |
           flutter config --enable-windows-desktop
-          flutter config --enable-macos-desktop
-          flutter config --enable-linux-desktop
       
-      - name: Get dependencies
-        run: flutter pub get
+      - name: Get Flutter version
+        run: flutter --version
       
-      - name: Build Windows
-        if: matrix.os == 'windows-latest'
-        run: flutter build windows
+      - name: Get dependencies with verbose
+        run: flutter pub get --verbose
       
-      - name: Build macOS
-        if: matrix.os == 'macos-latest'
-        run: flutter build macos
-      
-      - name: Build Linux
-        if: matrix.os == 'ubuntu-latest'
-        run: flutter build linux
+      - name: Build Windows with verbose
+        run: flutter build windows --verbose
       
       - name: Upload Windows artifact
-        if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
           name: print-assistant-windows
           path: build/windows/x64/runner/Release/
-      
-      - name: Upload macOS artifact
-        if: matrix.os == 'macos-latest'
-        uses: actions/upload-artifact@v4
-        with:
-          name: print-assistant-macos
-          path: build/macos/Build/Products/Release/
-      
-      - name: Upload Linux artifact
-        if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v4
-        with:
-          name: print-assistant-linux
-          path: build/linux/x64/release/bundle/
