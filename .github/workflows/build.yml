@@ -47,21 +47,21 @@ jobs:
       
       - name: Upload Windows artifact
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: print-assistant-windows
           path: build/windows/x64/runner/Release/
       
       - name: Upload macOS artifact
         if: matrix.os == 'macos-latest'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: print-assistant-macos
           path: build/macos/Build/Products/Release/
       
       - name: Upload Linux artifact
         if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: print-assistant-linux
           path: build/linux/x64/release/bundle/
