@@ -1,0 +1,67 @@
+name: Flutter Cross-Platform Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: stable
+          cache: true
+      
+      - name: Enable desktop support
+        run: |
+          flutter config --enable-windows-desktop
+          flutter config --enable-macos-desktop
+          flutter config --enable-linux-desktop
+      
+      - name: Get dependencies
+        run: flutter pub get
+      
+      - name: Build Windows
+        if: matrix.os == 'windows-latest'
+        run: flutter build windows
+      
+      - name: Build macOS
+        if: matrix.os == 'macos-latest'
+        run: flutter build macos
+      
+      - name: Build Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: flutter build linux
+      
+      - name: Upload Windows artifact
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: print-assistant-windows
+          path: build/windows/x64/runner/Release/
+      
+      - name: Upload macOS artifact
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: print-assistant-macos
+          path: build/macos/Build/Products/Release/
+      
+      - name: Upload Linux artifact
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: print-assistant-linux
+          path: build/linux/x64/release/bundle/
