@@ -1,0 +1,81 @@
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# Logs
+logs
+*.log
+
+# Windows
+*.exe
+*.pdb
+*.dll
+*.ilk
+*.obj
+*.exp
+*.lib
+*.manifest
+*.res
+*.resx
+*.tlb
+*.tlh
+*.bak
+*.suo
+*.user
+*.ncb
+*.sdf
+*.opensdf
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.vcxproj.opendb
+*.ipch
+*.idb
+*.pdb
+*.db
+*.aps
+*.vspscc
+*.vssscc
+*.ncrunch*.
+*.crunch*.
+*.resharper
+*.dotCover
+*.TestLog.xml
+
+# macOS
+.DS_Store
+*.swp
+*.swo
+*~
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Other
+.env
+.env.local
+.env.*.local
+
+# Generated files
+generated_plugin_registrant.cc
+generated_plugin_registrant.h
+generated_plugin_registrant.m
+
+# Build outputs
+/out/
+/build/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
